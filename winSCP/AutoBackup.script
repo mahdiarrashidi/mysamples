@@ -1,0 +1,17 @@
+#Enable batch mode
+option batch on
+
+#Establish a connection to the server.
+open sftp://%MYUSERNAME%:%MYPASSWORD%@server/ -timeout=1200 -hostkey="ssh-ed25519 255 btQnl+vjWytWrODQgpAUEB0RpGsS0MZWrxgg+91442c="
+
+#Changes the local working directory.
+lcd D:\mybackups
+
+#Download the compressed backup file from the server.
+get /tmp/server*.tar.gz
+
+#Remove the compressed backup file from the server.
+call rm -rf /tmp/server*.tar.gz
+
+close
+bye
