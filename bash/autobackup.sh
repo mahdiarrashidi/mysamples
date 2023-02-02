@@ -11,8 +11,9 @@ ls -l $output
 
 #Transfer all compressed files in FTP server
 HOST='10.19.1.4'
-USER='rashidi-m'
-PASSWD='QAZasd1122'
+USER='mahdiar'
+PASSWD='cat secret.txt | openssl enc -aes-256-cbc -md sha512 -a -d -pbkdf2 \ 
+-iter 100000 -salt -pass pass:Secret@123#'
 FILE='*.tar.gz'
 
 ftp -ni $HOST <<END_TRANSFER
