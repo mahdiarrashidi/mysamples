@@ -6,7 +6,7 @@ set MYPASSWORD="A1 ohli ldr,gd?#{[]}$~`\"
 
 Rem #This line starts a WinSCP script file
 
-start C:\home\Rashidi\WinSCP\WinSCP.com /ini=nul /script=C:\home\Rashidi\WinSCP\BackupPlans\vw1\AutoBackup_vw1.script /log=C:\home\Rashidi\WinSCP\BackupPlans\vw1\AutoBackup_vw1.log
+start C:\home\Rashidi\WinSCP\WinSCP.com /ini=nul /script=C:\home\Mahdiar\WinSCP\BackupPlans\myserver\AutoBackup.script /log=C:\home\Mahdiar\WinSCP\BackupPlans\myserver\AutoBackup.log
 
 Rem #This line delets the files older than 70 days
 
