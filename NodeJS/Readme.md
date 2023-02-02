@@ -1,7 +1,7 @@
 ### Install prerequisites
 cd ./NodeJS
 
-npm install express --save
+npm install https
 
 npm install ws
 
