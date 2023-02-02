@@ -1,0 +1,70 @@
+- name: ------ Install packages ------
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - firewalld
+    - nfs-utils
+  tags: install_firewalld_nfsutils
+
+- name: ------ Enable and Start firewalld ------
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  loop:
+    - firewalld
+    - nfs-server
+  tags: start_firewalld_nfserver
+
+- name: ------ Allow SSH and NFS service over firewall ------
+  firewalld:
+    service: "{{ item }}"
+    permanent: yes
+    state: enabled
+    immediate: true
+    zone: public
+  loop:
+    - ssh
+    - nfs
+  tags: firewalld_mod
+
+- name: ------ Create the shared dir ------
+  file:
+    path: /data1
+    state: directory
+    owner: nfsnobody
+    group: nfsnobody
+    mode: 0755
+  tags: create_shared_dir
+
+- name: ------ Exports ------
+  file:
+    path: /etc/exports
+    state: touch
+  tags: exports_config
+
+- name: ------ config /etc/exports on server -------
+  lineinfile:
+    line: "/data1 {{item}}(rw,sync,no_root_squash,no_subtree_check)"
+    path: /etc/exports
+  with_items:
+    - "{{ groups.nfs_client }}"
+  when: server_role=="nfsserver"
+  tags: config_client_exports
+
+- name: ------ Exportfs ------
+  shell: "exportfs -arv"
+  tags: exportfs
+
+- name: ------ Mount the NFS ------
+  mount:
+    src: "{{ item }}:/data1"
+    path: /data1
+    opts: rw,sync,hard,intr
+    state: mounted
+    fstype: nfs
+  with_items:
+    - "{{ groups.nfs_server }}"
+  when: server_role=="nfsclient"
+  tags: mount_nfs
