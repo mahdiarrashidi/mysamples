@@ -1,23 +1,24 @@
+# provider
 provider "aws" {
   region = "eu-west-2"
   access_key = "AAAAAAAAAA"
   secret_key = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
 }
 
-# ایجاد VPC
+# Create VPC
 resource "aws_vpc" "example_vpc" {
   cidr_block       = "10.0.0.0/16"
  // availability_zone = "eu-west-2"
 }
 
-# ایجاد Subnet
+# Create Subnet
 resource "aws_subnet" "example_subnet" {
   vpc_id     = aws_vpc.example_vpc.id
   cidr_block = "10.0.0.0/24"
   availability_zone = "eu-west-2a"
 }
 
-# ایجاد Security Group برای EC2 اول
+# Security Group for the first EC2
 resource "aws_security_group" "example_sg1" {
   name        = "example-sg1"
   description = "Security Group for EC2 Instance 1"
@@ -38,7 +39,7 @@ resource "aws_security_group" "example_sg1" {
   }
 }
 
-# ایجاد Security Group برای EC2 دوم
+# Security Group for the second EC2
 resource "aws_security_group" "example_sg2" {
   name        = "example-sg2"
   description = "Security Group for EC2 Instance 2"
@@ -66,7 +67,7 @@ resource "aws_security_group" "example_sg2" {
   }
 }
 
-# ایجاد EC2 Instance اول
+# Create the first EC2 Instance
 resource "aws_instance" "example_instance1" {
   ami           = "ami-09744628bed84e434"
   instance_type = "t2.micro"
@@ -74,7 +75,7 @@ resource "aws_instance" "example_instance1" {
   vpc_security_group_ids = [aws_security_group.example_sg1.id]
 }
 
-# ایجاد EC2 Instance دوم
+# Create the second EC2 Instance
 resource "aws_instance" "example_instance2" {
   ami           = "ami-09744628bed84e434"
   instance_type = "t2.micro"
