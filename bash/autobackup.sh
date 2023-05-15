@@ -1,6 +1,6 @@
 #!/bin/bash
 
-############################ For scheduled backup keep this file in crontab ############################
+############################ For scheduled backup keep this file in crontab ###########################
 
 #Compress www directory and move the file to /tmp
 input=("/var/www")
