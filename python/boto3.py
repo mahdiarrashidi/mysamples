@@ -6,7 +6,7 @@ import json
 
 boto_client_emr = boto3.client("emr")
 cluster_id = "j-DFGDSFGREWG"
-
+ 
 def get_emr_master_pvt_ip(boto_client_emr, cluster_id):
     emr_list_instance_rep = boto_client_emr.list_instances(
         ClusterId=cluster_id,
