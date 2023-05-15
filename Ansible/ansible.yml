@@ -1,4 +1,4 @@
-- name: ------ Install packages -------
+- name: ------ Install firewalld & nfs-utils packages -------
   yum:
     name: "{{ item }}"
     state: present
@@ -33,8 +33,8 @@
   file:
     path: /data1
     state: directory
-    owner: nfsnobody
-    group: nfsnobody
+    owner: nfsuser1
+    group: nfsuser1
     mode: 0755
   tags: create_shared_dir
 
